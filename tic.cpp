@@ -59,7 +59,7 @@ int winner()
     }
     return 0;
 }
-void swap_player_and_marker()
+void swap_player_and_marker(char marker1, char marker2)
 {
     if (currentPlayer == 1)
     {
@@ -68,20 +68,23 @@ void swap_player_and_marker()
     else
         currentPlayer = 1;
 
-    if (currentMarker == 'X')
-        currentMarker = 'Y';
+    if (currentMarker == marker1)
+        currentMarker = marker2;
     else
-        currentMarker = 'X';
+        currentMarker = marker1;
 }
 void game()
 {
     cout << "Player 1 select your marker" << endl;
-    char marker;
+    char marker1;
+    cin >> marker1;
+    cout << "Player 2 select your marker" << endl;
+    char marker2;
+    cin >> marker2;
     int slot;
     int win = 0;
-    cin >> marker;
     currentPlayer = 1;
-    currentMarker = marker;
+    currentMarker = marker1;
     drawBoard();
     for (int i = 0; i < 9; i++)
     {
@@ -106,10 +109,10 @@ void game()
         win = winner();
         if (win != 0)
         {
-            cout << "Player " << currentPlayer << " is the winner.";
+            cout << "Player " << currentPlayer << '(' << currentMarker << ')' << " is the winner.";
             break;
         }
-        swap_player_and_marker();
+        swap_player_and_marker(marker1, marker2);
     }
     if (win == 0)
         cout << "Nobody won, Match was a draw.";
